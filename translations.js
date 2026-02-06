@@ -154,11 +154,10 @@ const translations = {
     }
 };
 
-let currentLanguage = localStorage.getItem('selectedLanguage') || null;
+let currentLanguage = null;
 
 function applyTranslations(lang) {
     currentLanguage = lang;
-    localStorage.setItem('selectedLanguage', lang);
     const translation = translations[lang];
     
     document.querySelectorAll('[data-translate]').forEach(element => {
@@ -240,9 +239,5 @@ function showLanguageSelector() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    if (!currentLanguage) {
-        showLanguageSelector();
-    } else {
-        applyTranslations(currentLanguage);
-    }
+    showLanguageSelector();
 });
