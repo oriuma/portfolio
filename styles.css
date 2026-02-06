@@ -100,6 +100,152 @@ body {
     to { transform: translate(100px, 50px) rotate(180deg) scale(1.2); }
 }
 
+/* Language Selector Modal */
+.language-selector-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.language-selector-overlay.show {
+    opacity: 1;
+}
+
+.language-selector-overlay.fade-out {
+    opacity: 0;
+}
+
+.language-selector-modal {
+    background: var(--card-bg-color);
+    border: 2px solid var(--card-border-color);
+    border-radius: 2rem;
+    padding: 3rem 2.5rem;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+    transform: scale(0.8) translateY(50px);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.language-selector-overlay.show .language-selector-modal {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+.language-selector-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2.5rem;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple), var(--accent-pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { filter: hue-rotate(0deg); }
+    50% { filter: hue-rotate(30deg); }
+}
+
+.language-options {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.language-option {
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid var(--card-border-color);
+    border-radius: 1.5rem;
+    padding: 2rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 130px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.language-option::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s ease;
+}
+
+.language-option:hover::before {
+    left: 100%;
+}
+
+.language-option:hover {
+    transform: translateY(-10px) scale(1.05);
+    border-color: var(--accent-blue);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 170, 255, 0.3);
+}
+
+.language-option:nth-child(2):hover {
+    border-color: var(--accent-orange);
+    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+}
+
+.language-option:nth-child(3):hover {
+    border-color: var(--accent-pink);
+    box-shadow: 0 10px 30px rgba(255, 0, 127, 0.3);
+}
+
+.language-flag {
+    font-size: 4rem;
+    line-height: 1;
+    animation: wave 2s ease-in-out infinite;
+}
+
+@keyframes wave {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+}
+
+.language-option:hover .language-flag {
+    animation: bounce 0.6s ease;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.language-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
 .bento-grid {
     display: grid;
     grid-template-columns: repeat(9, 1fr);
@@ -582,4 +728,23 @@ button:focus-visible,
     .card-social-links { grid-template-columns: 1fr 1fr 1fr 1fr; }
     .custom-cursor { display: none; }
     body { cursor: auto; }
+    
+    .language-selector-modal {
+        padding: 2rem 1.5rem;
+    }
+    
+    .language-selector-title {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .language-options {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .language-option {
+        width: 100%;
+        padding: 1.5rem 1rem;
+    }
 }
