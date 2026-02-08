@@ -74,45 +74,15 @@
                     <span data-translate="socialDiscord">Discord</span>
                 </a>
             </div>
-            <div class="bento-item card-coffee">
-                <h3 class="coffee-title" data-translate="coffeeTitle">Buy me a coffee ☕</h3>
-                <div class="coffee-content">
-                    <div class="donate-columns">
-                        <div class="donate-column">
-                            <img
-                                src="https://img.vietqr.io/image/970422-113366668888-compact2.jpg?amount=0&addInfo=Thank%20you%20so%20much!&accountName=oriuma%20@ril"
-                                alt="Bank QR Code"
-                                class="coffee-qr"
-                                id="qr-bank-trigger"
-                                data-translate-alt="coffeeQRBankTitle"
-                                title="Open Bank QR Code"
-                            />
-                            <a href="https://paypal.me/alloha43?country.x=PL&locale.x=pl_PL" class="coffee-button paypal" target="_blank" rel="noopener noreferrer">
-                                <i class="fab fa-paypal"></i>
-                                <span data-translate="coffeePayPal">PayPal Wallet</span>
-                            </a>
-                        </div>
-                        <div class="donate-column">
-                            <img
-                                src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=0xaf1a33609761df7e49e4198600936ef04da47dc7"
-                                alt="USDT BEP20 QR Code"
-                                class="coffee-qr"
-                                id="qr-usdt-trigger"
-                                data-translate-alt="coffeeQRUSDTTitle"
-                                title="Open USDT QR Code"
-                            />
-                            <button
-                                id="usdt-copy-button"
-                                class="coffee-button usdt"
-                                data-address="0xaf1a33609761df7e49e4198600936ef04da47dc7"
-                                data-translate-title="coffeeUSDT"
-                                title="USDT (BEP20) Wallet"
-                            >
-                                <i class="fa-solid fa-copy"></i>
-                                <span data-translate="coffeeUSDT">USDT (BEP20) Wallet</span>
-                            </button>
-                        </div>
-                    </div>
+            <div class="bento-item card-skills">
+                <h2 class="skills-title" data-translate="skillsTitle">Skills</h2>
+                <div class="skills-list">
+                    <span data-translate="skillPM">Project Manager</span>
+                    <span data-translate="skillGenAI">Generative AI</span>
+                    <span data-translate="skillAutomation">Automation</span>
+                    <span data-translate="skill3D">3D Modeling</span>
+                    <span data-translate="skillPython">Python</span>
+                    <span data-translate="skillHTML">HTML</span>
                 </div>
             </div>
         </div>
@@ -124,15 +94,23 @@
                     <p data-translate="nowDescription">Researching and developing Artificial Intelligence solutions.</p>
                 </div>
             </div>
-            <div class="bento-item card-skills">
-                <h2 class="skills-title" data-translate="skillsTitle">Skills</h2>
-                <div class="skills-list">
-                    <span data-translate="skillPM">Project Manager</span>
-                    <span data-translate="skillGenAI">Generative AI</span>
-                    <span data-translate="skillAutomation">Automation</span>
-                    <span data-translate="skill3D">3D Modeling</span>
-                    <span data-translate="skillPython">Python</span>
-                    <span data-translate="skillHTML">HTML</span>
+            <div class="bento-item card-coffee">
+                <h3 class="coffee-title" data-translate="coffeeTitle">Buy me a coffee ☕</h3>
+                <div class="coffee-content">
+                    <a href="https://paypal.me/alloha43?country.x=PL&locale.x=pl_PL" class="coffee-button paypal" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-paypal"></i>
+                        <span data-translate="coffeePayPal">PayPal Wallet</span>
+                    </a>
+                    <button
+                        id="usdt-copy-button"
+                        class="coffee-button usdt"
+                        data-address="0xaf1a33609761df7e49e4198600936ef04da47dc7"
+                        data-translate-title="coffeeUSDT"
+                        title="USDT (BEP20) Wallet"
+                    >
+                        <i class="fa-solid fa-copy"></i>
+                        <span data-translate="coffeeUSDT">USDT (BEP20) Wallet</span>
+                    </button>
                 </div>
             </div>
             <div class="bento-item card-journey">
@@ -158,22 +136,6 @@
             </div>
         </div>
         <div class="bento-column column-tools" id="tools-container"></div>
-    </div>
-    <div class="modal-overlay" id="qr-bank-modal">
-        <img
-            src="https://img.vietqr.io/image/970422-113366668888-compact2.jpg?amount=0&addInfo=Thank%20you%20so%20much!&accountName=oriuma%20@ril"
-            alt="Enlarged Bank QR Code"
-            class="modal-content"
-            data-translate-alt="modalBankAlt"
-        />
-    </div>
-    <div class="modal-overlay" id="qr-usdt-modal">
-        <img
-            src="https://api.qrserver.com/v1/create-qr-code/?size=600x600&data=0xaf1a33609761df7e49e4198600936ef04da47dc7"
-            alt="Enlarged USDT QR Code"
-            class="modal-content"
-            data-translate-alt="modalUSDTAlt"
-        />
     </div>
     <script src="translations.js"></script>
     <script src="tools-data.js"></script>
