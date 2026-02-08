@@ -2,16 +2,21 @@ const toolsData = [
     {
         icon: "assets/images/glab.png",
         alt: "G-labs Icon",
-        link: "https://github.com/duckmartians/G-Labs-Automation",
+        link: "https://base.app/post/0x65a575502a9b06bf354aea41eb339e9c22562995",
         vi: {
-            title: "G-labs Automation",
-            description: "Veo 3.1 / Nano Banana Pro",
+            title: "Tamagochi MrTrump",
+            description: "BaseApp",
             buttonText: "Thử ngay"
         },
         en: {
-            title: "G-labs Automation",
-            description: "Veo 3.1 / Nano Banana Pro",
+            title: "Tamagochi MrTrump",
+            description: "BaseApp",
             buttonText: "Try Now"
+        },
+        ru: {
+            title: "Tamagochi MrTrump",
+            description: "BaseApp",
+            buttonText: "Попробовать"
         }
     }
     /*,
