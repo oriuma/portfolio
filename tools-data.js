@@ -1,7 +1,7 @@
 const toolsData = [
     {
-        icon: "assets/images/glab.png",
-        alt: "G-labs Icon",
+        icon: "https://i.pinimg.com/564x/e0/dd/71/e0dd7113b5798461b083db87a2cf36ec.jpg",
+        alt: "Tamagochi MrTrump Icon",
         link: "https://base.app/post/0x65a575502a9b06bf354aea41eb339e9c22562995",
         vi: {
             title: "Tamagochi MrTrump",
