@@ -13,7 +13,8 @@ const toolsData = [
             description: "Veo 3.1 / Nano Banana Pro",
             buttonText: "Try Now"
         }
-    },
+    }
+    /*,
     {
         icon: "assets/images/whisk.png",
         alt: "Auto Whisk Icon",
@@ -104,4 +105,5 @@ const toolsData = [
             buttonText: "Try Now"
         }
     }
+    */
 ];
