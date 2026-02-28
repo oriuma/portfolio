@@ -506,12 +506,13 @@ body {
 
 .card-coffee {
     padding: 1rem;
+    display: block;
     align-self: flex-start;
 }
 
 .coffee-title {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    margin-bottom: 0.75rem;
 }
 
 .coffee-content {
@@ -525,7 +526,7 @@ body {
     text-decoration: none;
     color: var(--text-primary);
     background: rgba(255, 255, 255, 0.1);
-    padding: 0.5rem 0.8rem;
+    padding: 0.65rem 1rem;
     border-radius: 8px;
     text-align: center;
     font-weight: bold;
@@ -535,7 +536,7 @@ body {
     justify-content: center;
     flex: 1;
     max-width: 200px;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
 }
 
 .coffee-button:hover {
