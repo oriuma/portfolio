@@ -100,7 +100,7 @@ body {
     to { transform: translate(100px, 50px) rotate(180deg) scale(1.2); }
 }
 
-/* Language Selector Modal */
+/* Language Selector Modal with 3D Effects */
 .language-selector-overlay {
     position: fixed;
     top: 0;
@@ -116,6 +116,7 @@ body {
     z-index: 10000;
     opacity: 0;
     transition: opacity 0.5s ease;
+    perspective: 1000px;
 }
 
 .language-selector-overlay.show {
@@ -134,7 +135,7 @@ body {
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    max-width: 500px;
+    max-width: 600px;
     width: 90%;
     text-align: center;
     transform: scale(0.8) translateY(50px);
@@ -169,22 +170,37 @@ body {
     gap: 1.5rem;
     justify-content: center;
     flex-wrap: wrap;
+    perspective: 1000px;
+}
+
+/* 3D Card Container for Language Options */
+.language-card-container {
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition: transform 0.3s ease;
 }
 
 .language-option {
-    background: rgba(255, 255, 255, 0.05);
-    border: 2px solid var(--card-border-color);
+    background: rgba(31, 31, 31, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 1.5rem;
     padding: 2rem 1.5rem;
     cursor: pointer;
-    transition: all 0.3s ease;
-    min-width: 130px;
+    min-width: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 1rem;
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* 3D Hover Effect */
+.language-card-container:hover {
+    transform: translateZ(20px);
 }
 
 .language-option::before {
@@ -196,54 +212,84 @@ body {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     transition: left 0.5s ease;
+    z-index: 1;
 }
 
 .language-option:hover::before {
     left: 100%;
 }
 
-.language-option:hover {
-    transform: translateY(-10px) scale(1.05);
+.language-card-container:hover .language-option {
+    transform: translateZ(50px);
     border-color: var(--accent-blue);
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 30px rgba(0, 170, 255, 0.3);
+    box-shadow: 0 20px 40px rgba(0, 170, 255, 0.4),
+                0 0 20px rgba(0, 170, 255, 0.2);
 }
 
-.language-option:nth-child(2):hover {
+.language-card-container:nth-child(2):hover .language-option {
     border-color: var(--accent-orange);
-    box-shadow: 0 10px 30px rgba(245, 158, 11, 0.3);
+    box-shadow: 0 20px 40px rgba(245, 158, 11, 0.4),
+                0 0 20px rgba(245, 158, 11, 0.2);
 }
 
-.language-option:nth-child(3):hover {
+.language-card-container:nth-child(3):hover .language-option {
     border-color: var(--accent-pink);
-    box-shadow: 0 10px 30px rgba(255, 0, 127, 0.3);
+    box-shadow: 0 20px 40px rgba(255, 0, 127, 0.4),
+                0 0 20px rgba(255, 0, 127, 0.2);
 }
 
 .language-flag {
     font-size: 4rem;
     line-height: 1;
-    animation: wave 2s ease-in-out infinite;
+    transform: translateZ(30px);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
 }
 
-@keyframes wave {
-    0%, 100% { transform: rotate(0deg); }
-    25% { transform: rotate(-10deg); }
-    75% { transform: rotate(10deg); }
+.language-card-container:hover .language-flag {
+    transform: translateZ(80px) scale(1.1);
+    animation: float 2s ease-in-out infinite;
 }
 
-.language-option:hover .language-flag {
-    animation: bounce 0.6s ease;
-}
-
-@keyframes bounce {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.2); }
+@keyframes float {
+    0%, 100% { transform: translateZ(80px) translateY(0) scale(1.1); }
+    50% { transform: translateZ(80px) translateY(-10px) scale(1.1); }
 }
 
 .language-name {
     font-size: 1.1rem;
     font-weight: 600;
     color: var(--text-primary);
+    transform: translateZ(20px);
+    transition: transform 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.language-card-container:hover .language-name {
+    transform: translateZ(60px);
+}
+
+/* Glowing effect on hover */
+.language-option::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 170, 255, 0.3), transparent 70%);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index: 0;
+}
+
+.language-option:hover::after {
+    width: 200%;
+    height: 200%;
 }
 
 .bento-grid {
@@ -688,5 +734,13 @@ button:focus-visible,
     .language-option {
         width: 100%;
         padding: 1.5rem 1rem;
+    }
+    
+    .language-card-container:hover {
+        transform: none;
+    }
+    
+    .language-card-container:hover .language-option {
+        transform: scale(1.02);
     }
 }
