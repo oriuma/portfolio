@@ -18,5 +18,25 @@ const toolsData = [
             description: "BaseApp",
             buttonText: "Spróbuj teraz"
         }
+    },
+    {
+        icon: "https://i.pinimg.com/564x/8c/3d/70/8c3d70f8a2e6b5a4c1f9e0d7b3a2c1d4.jpg",
+        alt: "Photo Gallery Icon",
+        link: "https://oriuma.github.io/portfolio/gallery",
+        en: {
+            title: "Photo Gallery",
+            description: "Collection of memories",
+            buttonText: "Look Now"
+        },
+        uk: {
+            title: "Фотогалерея",
+            description: "Колекція спогадів",
+            buttonText: "Переглянути"
+        },
+        pl: {
+            title: "Galeria Zdjęć",
+            description: "Kolekcja wspomnień",
+            buttonText: "Zobacz Teraz"
+        }
     }
 ];
