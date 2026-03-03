@@ -20,7 +20,7 @@ const toolsData = [
         }
     },
     {
-        icon: "https://oriuma.github.io/portfolio/gallery.png",
+        icon: "https://raw.githubusercontent.com/oriuma/portfolio/main/gallery.png",
         alt: "Photo Gallery Icon",
         link: "https://oriuma.github.io/portfolio/gallery",
         en: {
