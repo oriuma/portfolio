@@ -3,68 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Photo Gallery | Oriuma</title>
-    <meta name="description" content="Photo gallery - coming soon">
+    <title>Before/After Gallery | Oriuma</title>
+    <meta name="description" content="Photo editing portfolio - before and after examples">
     <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/564x/68/cd/36/68cd367a3757c1d07de808bcf7bc9bf0.jpg">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .container {
-            text-align: center;
-            padding: 2rem;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        p {
-            font-size: 1.2rem;
-            opacity: 0.9;
-        }
-
-        .back-link {
-            display: inline-block;
-            margin-top: 2rem;
-            padding: 0.8rem 2rem;
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid white;
-            border-radius: 50px;
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .back-link:hover {
-            background: white;
-            color: #667eea;
-            transform: translateY(-2px);
-        }
-    </style>
+    <link rel="stylesheet" href="gallery-style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>🖼️ Photo Gallery</h1>
-        <p>Coming soon...</p>
-        <a href="https://oriuma.github.io/portfolio/" class="back-link">← Back to Home</a>
+    <div class="background-aurora">
+        <div class="aurora-shape shape1"></div>
+        <div class="aurora-shape shape2"></div>
+        <div class="aurora-shape shape3"></div>
     </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title">📸 My Photo Editing Work</h1>
+            <p class="subtitle">Drag the slider to see the transformation</p>
+        </header>
+
+        <div class="gallery">
+            <!-- Before/After Comparison 1 -->
+            <div class="comparison-card">
+                <div class="comparison-wrapper">
+                    <div class="comparison-container">
+                        <img src="original_1.avif" alt="Original Photo" class="image-before">
+                        <div class="image-after-wrapper" style="width: 50%;">
+                            <img src="fixed_1.png" alt="Edited Photo" class="image-after">
+                        </div>
+                        <div class="slider" style="left: 50%;">
+                            <div class="slider-button">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M15 18l-6-6 6-6"/>
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="labels">
+                        <span class="label label-before">Before</span>
+                        <span class="label label-after">After</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add more comparison cards here when you add more images -->
+            <!-- Example:
+            <div class="comparison-card">
+                <div class="comparison-wrapper">
+                    <div class="comparison-container">
+                        <img src="original_2.jpg" alt="Original Photo" class="image-before">
+                        <div class="image-after-wrapper" style="width: 50%;">
+                            <img src="fixed_2.jpg" alt="Edited Photo" class="image-after">
+                        </div>
+                        <div class="slider" style="left: 50%;">
+                            <div class="slider-button">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M15 18l-6-6 6-6"/>
+                                    <path d="M9 18l6-6-6-6"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="labels">
+                        <span class="label label-before">Before</span>
+                        <span class="label label-after">After</span>
+                    </div>
+                </div>
+            </div>
+            -->
+        </div>
+
+        <div class="footer">
+            <a href="index.html" class="back-link">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Portfolio
+            </a>
+        </div>
+    </div>
+
+    <script src="gallery-script.js"></script>
 </body>
 </html>
