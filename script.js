@@ -224,7 +224,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const profileCard = document.querySelector('.card-profile');
         const socialCard = document.querySelector('.card-social-links');
         const journeyCard = document.querySelector('.card-journey');
-        const coffeeCard = document.querySelector('.card-coffee');
         const nowCard = document.querySelector('.card-now');
         const skillsCard = document.querySelector('.card-skills');
         const toolsColumn = document.querySelector('.column-tools');
@@ -236,15 +235,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const maxHeightProfile = Math.max(profileHeight, socialHeight);
             profileCard.style.height = `${maxHeightProfile}px`;
             socialCard.style.height = `${maxHeightProfile}px`;
-        }
-        if (journeyCard && coffeeCard) {
-            journeyCard.style.height = 'auto';
-            coffeeCard.style.height = 'auto';
-            const journeyHeight = journeyCard.offsetHeight;
-            const coffeeHeight = coffeeCard.offsetHeight;
-            const maxHeightJourney = Math.max(journeyHeight, coffeeHeight);
-            journeyCard.style.height = `${maxHeightJourney}px`;
-            coffeeCard.style.height = `${maxHeightJourney}px`;
         }
         if (nowCard && skillsCard) {
             nowCard.style.height = 'auto';
