@@ -1,7 +1,7 @@
 :root {
     --bg-color: #0d0d0d;
-    --card-bg: rgba(255, 255, 255, 0.05);
-    --card-border: rgba(255, 255, 255, 0.1);
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.15);
     --text-primary: #f0f0f0;
     --text-secondary: #a0a0a0;
     --accent-blue: #00aaff;
@@ -15,13 +15,19 @@
     box-sizing: border-box;
 }
 
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--bg-color);
     color: var(--text-primary);
-    min-height: 100vh;
     overflow-x: hidden;
-    position: relative;
+    overflow-y: auto;
 }
 
 /* WebGL Background Canvas */
@@ -29,25 +35,29 @@ body {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0;
     display: block;
 }
 
 /* Container */
 .container {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 2rem 2rem;
     position: relative;
     z-index: 1;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem 2rem;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 /* Header */
 .header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
 }
 
 .title {
@@ -58,6 +68,7 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    text-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
 }
 
 .subtitle {
@@ -70,7 +81,8 @@ body {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    flex: 1;
 }
 
 .comparison-card {
@@ -78,15 +90,15 @@ body {
     border: 1px solid var(--card-border);
     border-radius: 1.5rem;
     padding: 1.5rem;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .comparison-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 40px rgba(0, 170, 255, 0.2);
+    box-shadow: 0 12px 40px rgba(0, 170, 255, 0.3);
 }
 
 /* Placeholder cards */
@@ -94,14 +106,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 300px;
+    min-height: 280px;
     cursor: default;
-    opacity: 0.6;
+    opacity: 0.5;
 }
 
 .comparison-card.placeholder:hover {
     transform: none;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
 .placeholder-content {
@@ -250,7 +262,7 @@ body {
 /* Footer */
 .footer {
     text-align: center;
-    padding-bottom: 2rem;
+    padding: 1.5rem 0;
 }
 
 .back-link {
@@ -288,11 +300,12 @@ body {
 
 @media (max-width: 768px) {
     .container {
-        padding: 1.5rem 1rem;
+        padding: 1rem;
     }
 
     .header {
         margin-bottom: 1.5rem;
+        padding-top: 0.5rem;
     }
 
     .title {
@@ -308,7 +321,7 @@ body {
     }
 
     .comparison-card.placeholder {
-        min-height: 250px;
+        min-height: 220px;
     }
 
     .slider-button {
@@ -321,6 +334,6 @@ body {
     }
 
     .footer {
-        padding-bottom: 1.5rem;
+        padding: 1rem 0;
     }
 }
