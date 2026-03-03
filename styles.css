@@ -505,14 +505,12 @@ body {
 }
 
 .card-coffee {
-    padding: 1.25rem 1.5rem !important;
-    display: block;
-    align-self: flex-start;
+    padding: 1.5rem !important;
 }
 
 .coffee-title {
-    font-size: 1.1rem;
-    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .coffee-content {
@@ -639,7 +637,7 @@ button:focus-visible,
     }
 
     .card-coffee {
-        padding: 1.25rem 1.5rem !important;
+        padding: 1.5rem !important;
     }
 
     .card-profile { flex-direction: column; align-items: center; }
