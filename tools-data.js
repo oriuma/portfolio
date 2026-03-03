@@ -58,5 +58,25 @@ const toolsData = [
             description: "Różne automatyzacje dla biznesu i nie tylko",
             buttonText: "Zobacz Teraz"
         }
+    },
+    {
+        icon: "https://api.dicebear.com/9.x/avataaars/svg?seed=avatar-icon",
+        alt: "Avatar Generator Icon",
+        link: "https://oriuma.github.io/portfolio/avatar",
+        en: {
+            title: "Avatar Generator",
+            description: "Create unique avatars instantly",
+            buttonText: "Try Now"
+        },
+        uk: {
+            title: "Генератор Аватарів",
+            description: "Створюйте унікальні аватари миттєво",
+            buttonText: "Спробувати"
+        },
+        pl: {
+            title: "Generator Awatarów",
+            description: "Twórz unikalne awatary natychmiast",
+            buttonText: "Spróbuj teraz"
+        }
     }
 ];
