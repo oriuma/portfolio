@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderTools() {
         const toolsContainer = document.getElementById('tools-container');
         if (!toolsContainer) {
-            console.error('Không tìm thấy #tools-container');
+            console.error('Kh\u00f4ng t\u00ecm th\u1ea5y #tools-container');
             return;
         }
         if (typeof toolsData === 'undefined' || toolsData.length === 0) {
@@ -196,7 +196,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 usdtButton.innerHTML = `<i class="${trans.copyIconSuccess}"></i> <span>${trans.copySuccess}</span>`;
                 usdtButton.classList.add('copied');
             } catch (err) {
-                console.error('Không thể sao chép: ', err);
+                console.error('Kh\u00f4ng th\u1ec3 sao ch\u00e9p: ', err);
                 usdtButton.innerHTML = `<i class="${trans.copyIconError}"></i> <span>${trans.copyError}</span>`;
             }
             document.body.removeChild(tempTextArea);
@@ -223,10 +223,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function equalizeCardHeights() {
         const profileCard = document.querySelector('.card-profile');
         const socialCard = document.querySelector('.card-social-links');
-        const journeyCard = document.querySelector('.card-journey');
         const nowCard = document.querySelector('.card-now');
         const skillsCard = document.querySelector('.card-skills');
-        const toolsColumn = document.querySelector('.column-tools');
         if (profileCard && socialCard) {
             profileCard.style.height = 'auto';
             socialCard.style.height = 'auto';
@@ -273,5 +271,150 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }, 250);
     });
+
+    // ── Pendulum crystal ──────────────────────────────────────────────────────
+    function initPendulum() {
+        const canvas = document.getElementById('pendulum-canvas');
+        const pendant = document.getElementById('crystal-pendant');
+        if (!canvas || !pendant) return;
+
+        const ctx = canvas.getContext('2d');
+        const img = pendant.querySelector('img');
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        // Pivot = bottom-center of .card-skills
+        function getPivot() {
+            const card = document.querySelector('.card-skills');
+            if (!card) return { x: 200, y: 300 };
+            const r = card.getBoundingClientRect();
+            return { x: r.left + r.width / 2, y: r.bottom };
+        }
+
+        const L = 140;          // rope length px
+        let angle = 0.04;       // tiny initial displacement so it sways gently
+        let angVel = 0;         // angular velocity
+        let isDragging = false;
+        let history = [];       // for release-velocity calculation
+
+        function physicsStep() {
+            if (isDragging) return;
+            const acc = -0.0085 * Math.sin(angle);  // pendulum formula: -(g/L)*sin(θ)
+            angVel += acc;
+            angVel *= 0.993;                         // damping
+            angle += angVel;
+        }
+
+        function crystalPos(pivot) {
+            return {
+                x: pivot.x + Math.sin(angle) * L,
+                y: pivot.y + Math.cos(angle) * L
+            };
+        }
+
+        function drawRope(pivot, pos) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+            ctx.moveTo(pivot.x, pivot.y);
+            // slight curve for more natural look
+            const mx = (pivot.x + pos.x) / 2 + Math.sin(angle) * 8;
+            const my = (pivot.y + pos.y) / 2;
+            ctx.quadraticCurveTo(mx, my, pos.x, pos.y);
+            ctx.strokeStyle = 'rgba(200, 190, 220, 0.55)';
+            ctx.lineWidth = 1.2;
+            ctx.setLineDash([4, 5]);
+            ctx.stroke();
+            ctx.setLineDash([]);
+
+            // small anchor dot at pivot
+            ctx.beginPath();
+            ctx.arc(pivot.x, pivot.y, 3, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(200, 190, 220, 0.6)';
+            ctx.fill();
+        }
+
+        function loop() {
+            physicsStep();
+            const pivot = getPivot();
+            const pos = crystalPos(pivot);
+
+            drawRope(pivot, pos);
+
+            // position the pendant div (centered on crystal)
+            pendant.style.left = pos.x + 'px';
+            pendant.style.top  = pos.y + 'px';
+
+            // subtle rotation of the image based on swing angle
+            if (img) img.style.transform = `rotate(${angle * 14}deg)`;
+
+            requestAnimationFrame(loop);
+        }
+
+        // ── Drag (mouse) ─────────────────────────────
+        pendant.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            history = [];
+            pendant.style.cursor = 'grabbing';
+            e.preventDefault();
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const pivot = getPivot();
+            const dx = e.clientX - pivot.x;
+            const dy = e.clientY - pivot.y;
+            angle = Math.atan2(dx, dy);
+            history.push({ a: angle, t: performance.now() });
+            if (history.length > 8) history.shift();
+        });
+
+        window.addEventListener('mouseup', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            pendant.style.cursor = 'grab';
+            if (history.length >= 2) {
+                const f = history[0], l = history[history.length - 1];
+                const dt = (l.t - f.t) / 1000;
+                if (dt > 0.01) angVel = (l.a - f.a) / dt / 60;
+            }
+        });
+
+        // ── Drag (touch) ─────────────────────────────
+        pendant.addEventListener('touchstart', (e) => {
+            isDragging = true;
+            history = [];
+            e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+            const t = e.touches[0];
+            const pivot = getPivot();
+            angle = Math.atan2(t.clientX - pivot.x, t.clientY - pivot.y);
+            history.push({ a: angle, t: performance.now() });
+            if (history.length > 8) history.shift();
+            e.preventDefault();
+        }, { passive: false });
+
+        window.addEventListener('touchend', () => {
+            if (!isDragging) return;
+            isDragging = false;
+            if (history.length >= 2) {
+                const f = history[0], l = history[history.length - 1];
+                const dt = (l.t - f.t) / 1000;
+                if (dt > 0.01) angVel = (l.a - f.a) / dt / 60;
+            }
+        });
+
+        loop();
+    }
+
+    // Delay so layout is fully rendered before reading getBoundingClientRect
+    setTimeout(initPendulum, 200);
 
 });
