@@ -42,7 +42,7 @@ const toolsData = [
     {
         icon: "https://raw.githubusercontent.com/oriuma/portfolio/main/n8n.png",
         alt: "n8n Automations Icon",
-        link: "#",
+        link: "https://oriuma.github.io/portfolio/n8n-workflows",
         en: {
             title: "n8n Automations",
             description: "Various automations for business and beyond",
