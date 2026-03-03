@@ -38,5 +38,25 @@ const toolsData = [
             description: "Kolekcja wspomnień",
             buttonText: "Zobacz Teraz"
         }
+    },
+    {
+        icon: "https://raw.githubusercontent.com/oriuma/portfolio/main/n8n.png",
+        alt: "n8n Automations Icon",
+        link: "#",
+        en: {
+            title: "n8n Automations",
+            description: "Various automations for business and beyond",
+            buttonText: "Look Now"
+        },
+        uk: {
+            title: "n8n Автоматизації",
+            description: "Різноманітні автоматизації для бізнесу і не тільки",
+            buttonText: "Переглянути"
+        },
+        pl: {
+            title: "n8n Automatyzacje",
+            description: "Różne automatyzacje dla biznesu i nie tylko",
+            buttonText: "Zobacz Teraz"
+        }
     }
 ];
