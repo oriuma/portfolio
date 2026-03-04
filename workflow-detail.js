@@ -9,22 +9,28 @@ const workflow = workflowsData.find(w => w.id === workflowId);
 const workflowDetails = {
     1: {
         features: [
-            'Generate content using OpenAI GPT-4',
-            'Multiple content types: blog posts, social media, emails',
-            'Automatic saving to Google Drive',
-            'Custom prompt templates',
-            'Batch processing support'
+            'Automated daily backlink monitoring using DataForSEO API',
+            'Handles large datasets with pagination (up to 5,000 backlinks)',
+            'Creates timestamped Google Sheets reports with detailed metrics',
+            'Tracks Domain Rating, Spam Score, and Anchor Text',
+            'Automated Gmail notifications with report links',
+            'Filters backlinks lost in the last 24 hours',
+            'Safety cap prevents excessive API calls'
         ],
         usecases: [
-            'Content marketing automation',
-            'Social media post generation',
-            'Email campaign creation',
-            'Blog writing assistance'
+            'SEO specialists monitoring client backlink profiles',
+            'Site owners protecting domain authority',
+            'Detecting technical issues causing link drops',
+            'Recovering high-value lost backlinks',
+            'Proactive link-building campaign management',
+            'Competitor backlink analysis'
         ],
         requirements: [
-            'OpenAI API key',
-            'Google Drive credentials',
-            'n8n instance (self-hosted or cloud)'
+            'DataForSEO API credentials (login and password)',
+            'Google Sheets OAuth2 connection',
+            'Gmail OAuth2 connection',
+            'n8n instance (self-hosted or cloud)',
+            'Target domain to monitor'
         ]
     },
     2: {
@@ -232,8 +238,11 @@ function getNodeIcon(nodeType) {
         'n8n-nodes-base.filter': '🔍',
         'n8n-nodes-base.googleSheets': '📊',
         'n8n-nodes-base.telegram': '✈️',
-        'n8n-nodes-base.schedule': '⏰',
-        'n8n-nodes-base.webhook': '🪝'
+        'n8n-nodes-base.scheduleTrigger': '⏰',
+        'n8n-nodes-base.webhook': '🪝',
+        'n8n-nodes-base.aggregate': '📦',
+        'n8n-nodes-base.gmail': '📧',
+        'n8n-nodes-dataforseo.dataForSeoBacklinksApi': '🔗'
     };
     
     return icons[nodeType] || '📦';
