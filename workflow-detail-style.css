@@ -154,13 +154,75 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* Overview Layout */
+.overview-layout {
+    display: grid;
+    grid-template-columns: 65% 35%;
+    gap: 20px;
+}
+
+@media (max-width: 1024px) {
+    .overview-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
+.overview-text {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.overview-video {
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+/* Video Container */
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 12px;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 12px;
+}
+
+.video-placeholder {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #888;
+}
+
+.video-placeholder svg {
+    color: rgba(255, 255, 255, 0.3);
+    margin-bottom: 10px;
+}
+
+.video-placeholder p {
+    font-size: 14px;
+}
+
 /* Section */
 .section {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 30px;
-    margin-bottom: 20px;
 }
 
 .section h2 {
@@ -195,14 +257,35 @@ body {
     font-weight: bold;
 }
 
+/* Canvas Instructions */
+.canvas-instructions {
+    padding: 15px;
+    background: rgba(0, 170, 255, 0.1);
+    border: 1px solid rgba(0, 170, 255, 0.3);
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.canvas-instructions p {
+    margin: 0;
+    color: #00aaff;
+    font-size: 14px;
+}
+
 /* Canvas Container */
 .canvas-container {
     min-height: 600px;
     background: rgba(0, 0, 0, 0.3);
-    border: 2px dashed rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     position: relative;
     overflow: hidden;
+    touch-action: none;
+    cursor: grab;
+}
+
+.canvas-container:active {
+    cursor: grabbing;
 }
 
 .canvas-container .empty-state {
@@ -211,6 +294,7 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
+    pointer-events: none;
 }
 
 .canvas-container .empty-state svg {
@@ -236,6 +320,8 @@ body {
         linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
         linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
     background-size: 40px 40px;
+    position: relative;
+    transform-origin: 0 0;
 }
 
 .node {
@@ -284,85 +370,6 @@ body {
     pointer-events: none;
 }
 
-/* JSON Editor */
-.json-editor-controls {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 15px;
-}
-
-.btn-primary, .btn-secondary {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-}
-
-.btn-primary {
-    background: #00aaff;
-    color: #ffffff;
-}
-
-.btn-primary:hover {
-    background: #0088cc;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 170, 255, 0.3);
-}
-
-.btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: #e0e0e0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.15);
-}
-
-#json-editor {
-    width: 100%;
-    min-height: 500px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 2px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 20px;
-    color: #e0e0e0;
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
-    line-height: 1.6;
-    resize: vertical;
-}
-
-#json-editor:focus {
-    outline: none;
-    border-color: #00aaff;
-}
-
-.json-status {
-    margin-top: 10px;
-    padding: 12px;
-    border-radius: 8px;
-    font-size: 14px;
-    display: none;
-}
-
-.json-status.success {
-    display: block;
-    background: rgba(76, 175, 80, 0.2);
-    color: #4caf50;
-    border: 1px solid rgba(76, 175, 80, 0.3);
-}
-
-.json-status.error {
-    display: block;
-    background: rgba(244, 67, 54, 0.2);
-    color: #f44336;
-    border: 1px solid rgba(244, 67, 54, 0.3);
-}
-
 /* Responsive */
 @media (max-width: 768px) {
     .workflow-header {
@@ -385,5 +392,9 @@ body {
 
     .tab.active {
         border-left-color: #00aaff;
+    }
+
+    .overview-layout {
+        grid-template-columns: 1fr;
     }
 }

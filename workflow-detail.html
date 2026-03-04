@@ -36,64 +36,72 @@
         <div class="tabs">
             <button class="tab active" data-tab="overview">Overview</button>
             <button class="tab" data-tab="visualization">Visualization</button>
-            <button class="tab" data-tab="json">JSON Editor</button>
         </div>
 
         <!-- Tab Content -->
         <div class="tab-content active" id="overview">
-            <div class="section">
-                <h2>Description</h2>
-                <p id="workflow-description">Loading description...</p>
-            </div>
+            <div class="overview-layout">
+                <div class="overview-text">
+                    <div class="section">
+                        <h2>Description</h2>
+                        <p id="workflow-description">Loading description...</p>
+                    </div>
 
-            <div class="section">
-                <h2>What it does</h2>
-                <ul id="workflow-features">
-                    <li>Loading features...</li>
-                </ul>
-            </div>
+                    <div class="section">
+                        <h2>What it does</h2>
+                        <ul id="workflow-features">
+                            <li>Loading features...</li>
+                        </ul>
+                    </div>
 
-            <div class="section">
-                <h2>Use Cases</h2>
-                <ul id="workflow-usecases">
-                    <li>Loading use cases...</li>
-                </ul>
-            </div>
+                    <div class="section">
+                        <h2>Use Cases</h2>
+                        <ul id="workflow-usecases">
+                            <li>Loading use cases...</li>
+                        </ul>
+                    </div>
 
-            <div class="section">
-                <h2>Requirements</h2>
-                <ul id="workflow-requirements">
-                    <li>Loading requirements...</li>
-                </ul>
+                    <div class="section">
+                        <h2>Requirements</h2>
+                        <ul id="workflow-requirements">
+                            <li>Loading requirements...</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="overview-video">
+                    <div class="section">
+                        <h2>Video Tutorial</h2>
+                        <div class="video-container" id="video-container">
+                            <div class="video-placeholder">
+                                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <circle cx="12" cy="12" r="10"/>
+                                    <polygon points="10 8 16 12 10 16 10 8"/>
+                                </svg>
+                                <p>Video coming soon</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <div class="tab-content" id="visualization">
             <div class="section">
                 <h2>Workflow Canvas</h2>
+                <div class="canvas-instructions">
+                    <p><strong>Controls:</strong> Use two fingers to pan • Scroll to zoom • Space + drag to move</p>
+                </div>
                 <div class="canvas-container" id="canvas-container">
                     <div class="empty-state">
                         <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
                             <rect x="3" y="3" width="18" height="18" rx="2"/>
                             <path d="M9 9h6M9 15h6"/>
                         </svg>
-                        <h3>No workflow loaded</h3>
-                        <p>Paste your workflow JSON in the JSON Editor tab to visualize it</p>
+                        <h3>No workflow visualization available</h3>
+                        <p>Workflow JSON will be loaded automatically</p>
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="tab-content" id="json">
-            <div class="section">
-                <h2>Workflow JSON</h2>
-                <div class="json-editor-controls">
-                    <button id="load-json-btn" class="btn-primary">Load Workflow</button>
-                    <button id="clear-json-btn" class="btn-secondary">Clear</button>
-                    <button id="copy-json-btn" class="btn-secondary">Copy JSON</button>
-                </div>
-                <textarea id="json-editor" placeholder="Paste your n8n workflow JSON here..."></textarea>
-                <div class="json-status" id="json-status"></div>
             </div>
         </div>
     </div>
