@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Details | Oriuma</title>
+    <link rel="icon" type="image/jpeg" href="https://i.pinimg.com/564x/68/cd/36/68cd367a3757c1d07de808bcf7bc9bf0.jpg">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="workflow-detail-style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="n8n-workflows.html" class="back-btn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Back to Workflows
+            </a>
+            
+            <div class="workflow-header">
+                <div class="workflow-icon" id="workflow-icon">🚀</div>
+                <div class="workflow-info">
+                    <h1 id="workflow-title">Loading...</h1>
+                    <div class="workflow-meta">
+                        <span class="badge" id="workflow-category">Category</span>
+                        <span class="badge complexity" id="workflow-complexity">Complexity</span>
+                        <span class="nodes-count" id="workflow-nodes">0 nodes</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active" data-tab="overview">Overview</button>
+            <button class="tab" data-tab="visualization">Visualization</button>
+            <button class="tab" data-tab="json">JSON Editor</button>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content active" id="overview">
+            <div class="section">
+                <h2>Description</h2>
+                <p id="workflow-description">Loading description...</p>
+            </div>
+
+            <div class="section">
+                <h2>What it does</h2>
+                <ul id="workflow-features">
+                    <li>Loading features...</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Use Cases</h2>
+                <ul id="workflow-usecases">
+                    <li>Loading use cases...</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>Requirements</h2>
+                <ul id="workflow-requirements">
+                    <li>Loading requirements...</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tab-content" id="visualization">
+            <div class="section">
+                <h2>Workflow Canvas</h2>
+                <div class="canvas-container" id="canvas-container">
+                    <div class="empty-state">
+                        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M9 9h6M9 15h6"/>
+                        </svg>
+                        <h3>No workflow loaded</h3>
+                        <p>Paste your workflow JSON in the JSON Editor tab to visualize it</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-content" id="json">
+            <div class="section">
+                <h2>Workflow JSON</h2>
+                <div class="json-editor-controls">
+                    <button id="load-json-btn" class="btn-primary">Load Workflow</button>
+                    <button id="clear-json-btn" class="btn-secondary">Clear</button>
+                    <button id="copy-json-btn" class="btn-secondary">Copy JSON</button>
+                </div>
+                <textarea id="json-editor" placeholder="Paste your n8n workflow JSON here..."></textarea>
+                <div class="json-status" id="json-status"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="n8n-data.js"></script>
+    <script src="workflow-detail.js"></script>
+</body>
+</html>
