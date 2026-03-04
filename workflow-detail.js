@@ -31,7 +31,8 @@ const workflowDetails = {
             'Gmail OAuth2 connection',
             'n8n instance (self-hosted or cloud)',
             'Target domain to monitor'
-        ]
+        ],
+        youtubeId: '' // Add YouTube video ID here when available
     },
     2: {
         features: [
@@ -51,7 +52,8 @@ const workflowDetails = {
             'Twitter API credentials',
             'n8n instance',
             'Image hosting (optional)'
-        ]
+        ],
+        youtubeId: ''
     },
     // Add more detailed info for other workflows
 };
@@ -75,7 +77,23 @@ if (workflow) {
             details.usecases.map(u => `<li>${u}</li>`).join('');
         document.getElementById('workflow-requirements').innerHTML = 
             details.requirements.map(r => `<li>${r}</li>`).join('');
+        
+        // Load YouTube video if available
+        if (details.youtubeId) {
+            const videoContainer = document.getElementById('video-container');
+            videoContainer.innerHTML = `
+                <iframe 
+                    src="https://www.youtube.com/embed/${details.youtubeId}" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            `;
+        }
     }
+
+    // Auto-load workflow JSON
+    loadWorkflowJSON(workflowId);
 } else {
     document.getElementById('workflow-title').textContent = 'Workflow not found';
 }
@@ -96,64 +114,32 @@ tabs.forEach(tab => {
     });
 });
 
-// JSON Editor functionality
-let loadedWorkflowJSON = null;
-
-document.getElementById('load-json-btn').addEventListener('click', () => {
-    const jsonText = document.getElementById('json-editor').value.trim();
-    const statusEl = document.getElementById('json-status');
-    
-    if (!jsonText) {
-        statusEl.className = 'json-status error';
-        statusEl.textContent = 'Please paste a workflow JSON first';
-        return;
-    }
-    
+// Auto-load workflow JSON from file
+async function loadWorkflowJSON(id) {
     try {
-        loadedWorkflowJSON = JSON.parse(jsonText);
-        statusEl.className = 'json-status success';
-        statusEl.textContent = '✓ Workflow loaded successfully! Switch to Visualization tab to see the canvas.';
-        
-        // Render workflow
-        renderWorkflowCanvas(loadedWorkflowJSON);
+        const response = await fetch(`workflow-${id}.json`);
+        if (response.ok) {
+            const workflowJSON = await response.json();
+            renderWorkflowCanvas(workflowJSON);
+        }
     } catch (error) {
-        statusEl.className = 'json-status error';
-        statusEl.textContent = `⚠ Invalid JSON: ${error.message}`;
+        console.log('No workflow JSON file found:', error);
     }
-});
+}
 
-document.getElementById('clear-json-btn').addEventListener('click', () => {
-    document.getElementById('json-editor').value = '';
-    document.getElementById('json-status').style.display = 'none';
-    loadedWorkflowJSON = null;
-    
-    // Clear canvas
-    const container = document.getElementById('canvas-container');
-    container.innerHTML = `
-        <div class="empty-state">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="3" y="3" width="18" height="18" rx="2"/>
-                <path d="M9 9h6M9 15h6"/>
-            </svg>
-            <h3>No workflow loaded</h3>
-            <p>Paste your workflow JSON in the JSON Editor tab to visualize it</p>
-        </div>
-    `;
-});
+// Canvas pan and zoom variables
+let canvas = null;
+let scale = 1;
+let translateX = 0;
+let translateY = 0;
+let isDragging = false;
+let startX = 0;
+let startY = 0;
+let touches = [];
+let initialDistance = 0;
+let initialScale = 1;
 
-document.getElementById('copy-json-btn').addEventListener('click', () => {
-    const jsonText = document.getElementById('json-editor').value;
-    navigator.clipboard.writeText(jsonText).then(() => {
-        const statusEl = document.getElementById('json-status');
-        statusEl.className = 'json-status success';
-        statusEl.textContent = '✓ JSON copied to clipboard!';
-        setTimeout(() => {
-            statusEl.style.display = 'none';
-        }, 2000);
-    });
-});
-
-// Render workflow canvas
+// Render workflow canvas with pan and zoom
 function renderWorkflowCanvas(workflowJSON) {
     const container = document.getElementById('canvas-container');
     
@@ -163,7 +149,7 @@ function renderWorkflowCanvas(workflowJSON) {
     
     // Create canvas
     container.innerHTML = '<div id="workflow-canvas"></div>';
-    const canvas = document.getElementById('workflow-canvas');
+    canvas = document.getElementById('workflow-canvas');
     
     // Calculate positions if not provided
     const nodes = workflowJSON.nodes.map((node, index) => {
@@ -207,6 +193,159 @@ function renderWorkflowCanvas(workflowJSON) {
         
         canvas.appendChild(nodeEl);
     });
+    
+    // Initialize pan and zoom
+    initPanZoom();
+    
+    // Center the workflow
+    centerWorkflow(nodes);
+}
+
+function centerWorkflow(nodes) {
+    if (nodes.length === 0) return;
+    
+    // Calculate bounds
+    const minX = Math.min(...nodes.map(n => n.x));
+    const maxX = Math.max(...nodes.map(n => n.x));
+    const minY = Math.min(...nodes.map(n => n.y));
+    const maxY = Math.max(...nodes.map(n => n.y));
+    
+    const workflowWidth = maxX - minX + 100;
+    const workflowHeight = maxY - minY + 100;
+    
+    const container = document.getElementById('canvas-container');
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight;
+    
+    // Calculate scale to fit
+    const scaleX = containerWidth / workflowWidth;
+    const scaleY = containerHeight / workflowHeight;
+    scale = Math.min(scaleX, scaleY, 1) * 0.8; // 80% to add padding
+    
+    // Center position
+    translateX = (containerWidth - (minX + maxX + 100) * scale) / 2;
+    translateY = (containerHeight - (minY + maxY + 100) * scale) / 2;
+    
+    updateCanvasTransform();
+}
+
+function initPanZoom() {
+    const container = document.getElementById('canvas-container');
+    
+    // Mouse events
+    container.addEventListener('mousedown', onMouseDown);
+    container.addEventListener('mousemove', onMouseMove);
+    container.addEventListener('mouseup', onMouseUp);
+    container.addEventListener('mouseleave', onMouseUp);
+    container.addEventListener('wheel', onWheel, { passive: false });
+    
+    // Touch events
+    container.addEventListener('touchstart', onTouchStart, { passive: false });
+    container.addEventListener('touchmove', onTouchMove, { passive: false });
+    container.addEventListener('touchend', onTouchEnd);
+}
+
+function onMouseDown(e) {
+    if (e.button !== 0) return; // Only left click
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    e.preventDefault();
+}
+
+function onMouseMove(e) {
+    if (!isDragging) return;
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    updateCanvasTransform();
+}
+
+function onMouseUp() {
+    isDragging = false;
+}
+
+function onWheel(e) {
+    e.preventDefault();
+    
+    const delta = e.deltaY > 0 ? 0.9 : 1.1;
+    const newScale = scale * delta;
+    
+    if (newScale < 0.1 || newScale > 3) return;
+    
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    translateX = mouseX - (mouseX - translateX) * delta;
+    translateY = mouseY - (mouseY - translateY) * delta;
+    scale = newScale;
+    
+    updateCanvasTransform();
+}
+
+function onTouchStart(e) {
+    e.preventDefault();
+    touches = Array.from(e.touches);
+    
+    if (touches.length === 2) {
+        initialDistance = getDistance(touches[0], touches[1]);
+        initialScale = scale;
+    } else if (touches.length === 1) {
+        isDragging = true;
+        startX = touches[0].clientX - translateX;
+        startY = touches[0].clientY - translateY;
+    }
+}
+
+function onTouchMove(e) {
+    e.preventDefault();
+    touches = Array.from(e.touches);
+    
+    if (touches.length === 2) {
+        // Pinch zoom
+        const currentDistance = getDistance(touches[0], touches[1]);
+        const newScale = initialScale * (currentDistance / initialDistance);
+        
+        if (newScale >= 0.1 && newScale <= 3) {
+            const centerX = (touches[0].clientX + touches[1].clientX) / 2;
+            const centerY = (touches[0].clientY + touches[1].clientY) / 2;
+            
+            const rect = canvas.getBoundingClientRect();
+            const canvasCenterX = centerX - rect.left;
+            const canvasCenterY = centerY - rect.top;
+            
+            const scaleRatio = newScale / scale;
+            translateX = canvasCenterX - (canvasCenterX - translateX) * scaleRatio;
+            translateY = canvasCenterY - (canvasCenterY - translateY) * scaleRatio;
+            scale = newScale;
+            
+            updateCanvasTransform();
+        }
+    } else if (touches.length === 1 && isDragging) {
+        // Pan
+        translateX = touches[0].clientX - startX;
+        translateY = touches[0].clientY - startY;
+        updateCanvasTransform();
+    }
+}
+
+function onTouchEnd(e) {
+    touches = Array.from(e.touches);
+    if (touches.length === 0) {
+        isDragging = false;
+    }
+}
+
+function getDistance(touch1, touch2) {
+    const dx = touch1.clientX - touch2.clientX;
+    const dy = touch1.clientY - touch2.clientY;
+    return Math.sqrt(dx * dx + dy * dy);
+}
+
+function updateCanvasTransform() {
+    if (canvas) {
+        canvas.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+    }
 }
 
 function drawConnection(canvas, sourceNode, targetNode) {
