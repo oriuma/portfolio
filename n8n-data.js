@@ -2,12 +2,12 @@
 const workflowsData = [
     {
         id: 1,
-        title: "AI Content Generator",
-        description: "Generate blog posts, social media content, and marketing copy using OpenAI GPT-4 with customizable templates",
-        category: "ai",
-        complexity: "intermediate",
-        nodes: 8,
-        icon: "🤖",
+        title: "Monitor Lost Backlinks with DataForSEO",
+        description: "Automated daily backlink monitoring with DataForSEO API. Track lost backlinks, generate Google Sheets reports, and receive email alerts",
+        category: "automation",
+        complexity: "advanced",
+        nodes: 20,
+        icon: "🔗",
         link: "#"
     },
     {
