@@ -5,7 +5,7 @@ const toolsData = [
         link: "https://ai-europe-watch.lovable.app/",
         en: {
             title: "AI Europe Watch",
-            description: "AI news tracker for Europe",
+            description: "AI exposure vs labour market",
             buttonText: "Try Now"
         },
         uk: {
