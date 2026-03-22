@@ -1,5 +1,25 @@
 const toolsData = [
     {
+        icon: "https://raw.githubusercontent.com/oriuma/portfolio/main/europe.webp",
+        alt: "AI Europe Watch Icon",
+        link: "https://ai-europe-watch.lovable.app/",
+        en: {
+            title: "AI Europe Watch",
+            description: "AI news tracker for Europe",
+            buttonText: "Try Now"
+        },
+        uk: {
+            title: "AI Europe Watch",
+            description: "Трекер AI-новин для Європи",
+            buttonText: "Спробувати"
+        },
+        pl: {
+            title: "AI Europe Watch",
+            description: "Tracker wiadomości AI dla Europy",
+            buttonText: "Spróbuj teraz"
+        }
+    },
+    {
         icon: "https://i.pinimg.com/564x/e0/dd/71/e0dd7113b5798461b083db87a2cf36ec.jpg",
         alt: "Tamagochi MrTrump Icon",
         link: "https://base.app/post/0x65a575502a9b06bf354aea41eb339e9c22562995",
