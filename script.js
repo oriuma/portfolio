@@ -1,7 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     const userLang = navigator.language || navigator.userLanguage;
-    const lang = userLang.startsWith('vi') ? 'vi' : 'en';
+    let lang = 'en';
+    if (userLang.startsWith('vi')) {
+        lang = 'vi';
+    } else if (userLang.startsWith('uk')) {
+        lang = 'uk';
+    } else if (userLang.startsWith('pl')) {
+        lang = 'pl';
+    }
 
     function applyTranslations() {
         if (typeof translations === 'undefined') {
